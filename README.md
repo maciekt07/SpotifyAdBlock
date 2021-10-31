@@ -24,7 +24,7 @@ namespace SpotifyNowPlaying
                 {
                     Console.WriteLine(proc.MainWindowTitle);
                 }
-                Thread.Sleep(5000);
+                Thread.Sleep(5000); // 5000ms (5s) delay
             }
 
         }
