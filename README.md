@@ -1,6 +1,6 @@
 # SpotifyNowPlaying
 Get currently played Spotify song name by using C# console app / Get processes by name method
-![previev](https://raw.githubusercontent.com/maciekkoks/SpotifyNowPlaying/main/previev.png)
+![previev](https://raw.githubusercontent.com/maciekkoks/SpotifyNowPlaying/main/previev1.png)
 ```cs
 using System;
 using System.Diagnostics;
