@@ -13,20 +13,29 @@ namespace SpotifyNowPlaying
     {
         static void Main(string[] args)
         {
+           
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("SpotifyNowPlaying Author: github.com/maciekkoks");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("enter the delay in ms: ");
+            int delay = Int32.Parse(Console.ReadLine());
+            Console.WriteLine();
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 var proc = Process.GetProcessesByName("Spotify").LastOrDefault(p => !string.IsNullOrWhiteSpace(p.MainWindowTitle));
                 if (proc == null)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Spotify is not running");
                 }
-                else
+                if (proc != null)
                 {
                     Console.WriteLine(proc.MainWindowTitle);
                 }
-                Thread.Sleep(5000); // 5000ms (5s) delay
+                Thread.Sleep(delay);
+               
             }
-
         }
 
     }
