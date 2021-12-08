@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -9,13 +9,12 @@ namespace SpotifyNowPlaying
     {
         static void Main(string[] args)
         {
-           
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("SpotifyNowPlaying Author: github.com/maciekkoks");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("enter the delay in ms: ");
-            int delay = Int32.Parse(Console.ReadLine());
             Console.WriteLine();
+
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -24,13 +23,15 @@ namespace SpotifyNowPlaying
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Spotify is not running");
+                    Thread.Sleep(5000);
                 }
-                if (proc != null)
+                else
                 {
-                    Console.WriteLine(proc.MainWindowTitle);
+                    Console.WriteLine("[" + DateTime.Now.ToString("h:mm:ss") + "] " + proc.MainWindowTitle);
                 }
-                Thread.Sleep(delay);
-               
+
+                Thread.Sleep(1000);
+
             }
         }
 
