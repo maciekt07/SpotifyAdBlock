@@ -1,4 +1,4 @@
-# SpotifyNowPlaying
+# SpotifyAddBlock
 Get currently played Spotify song name and block ads by using C# console app / Get processes by name method
 ![preview](https://raw.githubusercontent.com/maciekkoks/SpotifyBlockAds/main/img/app-preview1.png)
 # Ads skipping
