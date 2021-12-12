@@ -38,7 +38,7 @@ namespace SpotifyNowPlaying
                     Console.WriteLine("[" + DateTime.Now.ToString("h:mm:ss") + "] " + proc.MainWindowTitle);
                     Console.Title = "Spotify Ads Skip + Now Playing - " + proc.MainWindowTitle;
                 }
-                if (proc.MainWindowTitle == "Advertisement")
+                if (proc.MainWindowTitle == "Advertisement") //ads skip
                 {
                     foreach (var process in Process.GetProcessesByName("Spotify"))
                     {
