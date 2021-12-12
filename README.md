@@ -1,6 +1,6 @@
 # SpotifyNowPlaying
 Get currently played Spotify song name and block ads by using C# console app / Get processes by name method
-![preview](https://raw.githubusercontent.com/maciekkoks/SpotifyBlockAds/main/img/preview.png)
+![preview](https://raw.githubusercontent.com/maciekkoks/SpotifyBlockAds/main/img/app-preview1.png)
 # Ads skipping
 ![ads](https://raw.githubusercontent.com/maciekkoks/SpotifyBlockAds/main/img/ads-skip.png)
 # Memory Usage
@@ -11,20 +11,22 @@ Get currently played Spotify song name and block ads by using C# console app / G
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace SpotifyNowPlaying
 {
     class Program
     {
         [DllImport("user32.dll")]
+
         public static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+        public static int a = 0;
         static void Main(string[] args)
         {
-            Console.Title = "Spotify Ads skip Author: github.com/maciekkoks" ;
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Spotify Ads Skip + Now Playing Author: github.com/maciekkoks");
+            Console.WriteLine("Spotify AdBlocker + Now Playing");
+            Console.WriteLine("Author: github.com/maciekkoks");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
 
@@ -36,15 +38,9 @@ namespace SpotifyNowPlaying
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Spotify is not running");
-                    Thread.Sleep(5000);
-
+                    Console.ResetColor();
                 }
-                if (proc != null)
-                {
-                    Console.WriteLine("[" + DateTime.Now.ToString("h:mm:ss") + "] " + proc.MainWindowTitle);
-                    Console.Title = "Spotify Ads Skip + Now Playing - " + proc.MainWindowTitle;
-                }
-                if (proc.MainWindowTitle == "Advertisement") //ads skip
+                if (proc.MainWindowTitle == "Advertisement")
                 {
                     foreach (var process in Process.GetProcessesByName("Spotify"))
                     {
@@ -54,13 +50,18 @@ namespace SpotifyNowPlaying
                     Thread.Sleep(2000);
                     keybd_event(0xB3, 0, 1, IntPtr.Zero);
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("Advertisement skipped");
+                    Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss") + "]  " + "Advertisement skipped");
+                    a++;
+                    Console.ResetColor();
                 }
-                Thread.Sleep(1000);
-            
+                if (proc != null)
+                {
+                    Console.Title = " Spotify AdBlocker + Now Playing - " + "Advertisements skipped: " + a + "               " + proc.MainWindowTitle;
+                    Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss") + "]  " + proc.MainWindowTitle);
+                    Thread.Sleep(1000);
+                }
             }
         }
-
     }
 }
 ```
