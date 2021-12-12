@@ -6,16 +6,19 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace SpotifyNowPlaying
 {
     class Program
     {
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
         static void Main(string[] args)
         {
-
+            Console.Title = "Spotify Ads skip Author: github.com/maciekkoks" ;
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("SpotifyNowPlaying Author: github.com/maciekkoks");
+            Console.WriteLine("Spotify Ads Skip + Now Playing Author: github.com/maciekkoks");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
 
@@ -30,13 +33,25 @@ namespace SpotifyNowPlaying
                     Thread.Sleep(5000);
 
                 }
-                else
+                if (proc != null)
                 {
                     Console.WriteLine("[" + DateTime.Now.ToString("h:mm:ss") + "] " + proc.MainWindowTitle);
+                    Console.Title = "Spotify Ads Skip + Now Playing - " + proc.MainWindowTitle;
                 }
-
+                if (proc.MainWindowTitle == "Advertisement")
+                {
+                    foreach (var process in Process.GetProcessesByName("Spotify"))
+                    {
+                        process.Kill();
+                    }
+                    System.Diagnostics.Process.Start("Spotify.exe");
+                    Thread.Sleep(2000);
+                    keybd_event(0xB3, 0, 1, IntPtr.Zero);
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Advertisement skipped");
+                }
                 Thread.Sleep(1000);
-
+            
             }
         }
 
