@@ -26,6 +26,7 @@ namespace SpotifyNowPlaying
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Spotify AdBlocker + Now Playing");
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Author: github.com/maciekkoks");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
@@ -38,9 +39,12 @@ namespace SpotifyNowPlaying
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Spotify is not running");
+                    System.Diagnostics.Process.Start("Spotify.exe");
                     Console.ResetColor();
+                    Thread.Sleep(1000);
+                    continue;                     
                 }
-                if (proc.MainWindowTitle == "Advertisement")
+                if (proc.MainWindowTitle == "Advertisement" || proc.MainWindowTitle == "Spotify")
                 {
                     foreach (var process in Process.GetProcessesByName("Spotify"))
                     {
@@ -50,14 +54,23 @@ namespace SpotifyNowPlaying
                     Thread.Sleep(2000);
                     keybd_event(0xB3, 0, 1, IntPtr.Zero);
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss") + "]  " + "Advertisement skipped");
+                    Console.WriteLine("Advertisement skipped");
                     a++;
                     Console.ResetColor();
+                    while (proc.MainWindowTitle == "Spotify"){Thread.Sleep(1000);}
                 }
                 if (proc != null)
                 {
-                    Console.Title = " Spotify AdBlocker + Now Playing - " + "Advertisements skipped: " + a + "               " + proc.MainWindowTitle;
-                    Console.WriteLine("[" + DateTime.Now.ToString("hh:mm:ss") + "]  " + proc.MainWindowTitle);
+                    if (proc.MainWindowTitle != "Spotify Free")
+                    {
+                        Console.Title = " Spotify AdBlocker - " + "Advertisements skipped: " + a + "                     " + proc.MainWindowTitle;
+                        Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + "]  " + proc.MainWindowTitle);
+                    }
+                    else
+                    {
+                        Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + "]  " + "Spotify (Paused)");
+                        Console.Title = " Spotify AdBlocker - " + "Advertisements skipped: " + a + "                     " + "Spotify (Paused)";
+                    }
                     Thread.Sleep(1000);
                 }
             }
